@@ -6,93 +6,90 @@
     <title>Captcha App</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            padding: 40px;
+            background-color: #eef2f5;
+            color: #2c3e50;
+            line-height: 1.6;
         }
 
         h1 {
-            font-size: 2rem;
+            text-align: center;
+            color: #34495e;
+            font-size: 2.5rem;
             margin-bottom: 20px;
-            color: #4a90e2;
         }
 
         form {
-            background-color: #ffffff;
+            background: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         label {
-            font-size: 1rem;
-            display: block;
-            margin-bottom: 10px;
-            color: #555;
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         input[type="number"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 20px;
+            padding: 12px;
             font-size: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            border-color: #3498db;
+            outline: none;
         }
 
         button {
-            background-color: #4a90e2;
-            color: #fff;
-            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
             font-size: 1rem;
+            font-weight: 600;
+            padding: 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #357ab8;
+            background-color: #2980b9;
         }
 
         #output {
-            margin-top: 20px;
-            background-color: #ffffff;
+            background: white;
+            margin: 20px auto;
             padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ddd;
-            max-width: 600px;
-            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
             max-height: 400px;
             overflow-y: auto;
-            display: flex;
-            flex-wrap: wrap; /* Permet de regrouper les items en colonnes */
-            gap: 10px; /* Espacement entre les items */
+            white-space: pre-wrap;
         }
 
-        .result-item {
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: calc(33.33% - 10px); /* Trois items par ligne */
-            text-align: center;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 0.9rem;
-            color: #555;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        #output::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #output::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        #output::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
     <script type="text/javascript" src="https://09bd26e5e726.eu-west-3.captcha-sdk.awswaf.com/09bd26e5e726/jsapi.js" defer></script>
@@ -105,8 +102,8 @@
         <button type="submit">Submit</button>
     </form>
     <div id="output"></div>
-
     <script>
+         const API_KEY = "QFYeykBdQKdBtLhvHuK+hlH19ZxKrOLx3L6WUx+qRpfh9vMYAJdYb2oxcpE5KTBfEhmqrrhEvRVeODIZAQEnIOTQqqG/j6FUGLohcKveATIuOWDePxGmPOdcu4NLMCWwCg8dGdatkqKZlUhos2yl3DGIuUL4JVhlpmvPN5Li8WUQXFptUmZqBZupowmVQ+Sb82O/zdObyaLVdjNnlXe02zWpeepFsOxUqk2nVJGN0RCEgH+OG8t5bdeLm4lKFoBQa4wAh5oVpJ8ErwhZNgdkLKqbwYX4cUGWHtOAcjRYcY1wxY/T8CXm6TG3tRwqbWmdGN0jvg9rVqpSPTFI7uwyVDxTtP5PAMBqMh4OZbwbidupU2OAw8wMGiHVj67ekOMI6dfq+7rZq/QcQJYjsEzMMNeA6hkj0Em8f8GUCpSIhSmPcgTqGt/bi3g/bkSwkNNaYQnu+X0GYKHH/fm88SJHUKVxvMb4TFBi7PDTDFH0qoXrbd4Z25D1mveDTjO0D65McMVwyg5CQlifCfGDmlSTSpgEHJ3uRPSYeF6ueJo8JGufYRv9HwAd1zKyHsASV2DmYT/p9dXFrNRqp9OmYM1lmqjdwLLibJ5mKF28B1Ku2sDg93UM1CBTgsDw9lsXOmccYSzVHUfbUL8C+qUJZ1cDZP34kEwbt/q+f9eWtD26vzQ=_0_1";
         const form = document.getElementById('inputForm');
         const numberInput = document.getElementById('numberInput');
         const outputDiv = document.getElementById('output');
@@ -120,8 +117,8 @@
                 return;
             }
 
-            outputDiv.innerHTML = ''; // Clear previous results
-            form.style.display = 'none'; // Hide the form
+            outputDiv.innerHTML = '';
+            form.style.display = 'none';
 
             let currentIndex = 1;
 
@@ -132,27 +129,19 @@
 
                 try {
                     const response = await fetch('https://api.prod.jcloudify.com/whoami');
-                    const resultItem = document.createElement('div');
-                    resultItem.className = 'result-item';
-
                     if (response.ok) {
                         const data = await response.json();
-                        resultItem.textContent = `${currentIndex}. ${data.message || 'Response received'}`;
+                        outputDiv.textContent += `${currentIndex}. ${data.message || 'Response received'}\n`;
                     } else {
-                        resultItem.textContent = `${currentIndex}. Forbidden`;
+                        outputDiv.textContent += `${currentIndex}. Forbidden\n`;
                     }
-
-                    outputDiv.appendChild(resultItem);
                 } catch (error) {
                     console.error('Error fetching:', error);
-                    const resultItem = document.createElement('div');
-                    resultItem.className = 'result-item';
-                    resultItem.textContent = `${currentIndex}. Forbidden`;
-                    outputDiv.appendChild(resultItem);
+                    outputDiv.textContent += `${currentIndex}. Forbidden\n`;
                 }
 
                 currentIndex++;
-                outputDiv.scrollTop = outputDiv.scrollHeight; // Scroll to the bottom
+                outputDiv.scrollTop = outputDiv.scrollHeight;
                 setTimeout(fetchSequence, 1000);
             };
 
